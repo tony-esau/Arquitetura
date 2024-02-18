@@ -20,7 +20,7 @@ revealNeighboringCells:
 	      addi $s6, $s2, 1 #column + 1
 	      
 	      begin_for_j_it:
-	            bgt $s5, $6, end_for_j_it #j > column + 1
+	            bgt $s5, $s6, end_for_j_it #j > column + 1
 	            
 	            li $t0, SIZE #SIZE = 8
 	            
@@ -33,8 +33,8 @@ revealNeighboringCells:
 	            sll $t1, $s3, 5 #percorre linhas
 	            sll $t2, $s5, 2 #percorre colunas
 	            add $t1, $t1, $t2 #calculo do endereço
-	            add $t1, $t1, $s0 #calculo do endereço em relação ao inicio da matriz
-	            lw $t2, 0($t1)# board[i][j] = $t2
+	            add $s7, $t1, $s0 #calculo do endereço em relação ao inicio da matriz
+	            lw $t2, 0($s7)# board[i][j] = $t2
 	            
 	            li $t3, -2 #-2 para comparação
 	            
@@ -43,17 +43,16 @@ revealNeighboringCells:
 	            move $a1, $s3 #i é agora o parâmetro 2
 	            move $a2, $s5 #j é agora o parâmetro 3
 	            jal countAdjacentBombs #chama a função de contar ao redor
-	            sw $v0, 0($t1) #board[i][j] = x;
+	            sw $v0, 0($s7) #board[i][j] = x;
 	            
 	            bne $v0, $zero, increment_j_and_jump #x != 0
 	            
 	            jal revealNeighboringCells #chamada recursiva
 	                              
 	            increment_j_and_jump:
-	                      addi $s5, $s5, 1
+	                      addi $s5, $s5, 1 #j++
 	                      j begin_for_j_it
-	            	 
-	            
+	           
 	            end_for_j_it:
 	            	addi $s3, $s3, 1 #i++
 	            	j begin_for_i_it
