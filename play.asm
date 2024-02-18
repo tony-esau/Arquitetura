@@ -15,7 +15,7 @@ play:
 	add $t2, $t0, $t1 #endereço parcial de board[row}[column]
 	add $s4, $t2, $s0 #adiciona o endereço inicial da matriz
 	
-	lw $s3,0($4) #carregando valor de board[row}[column] para $s3
+	lw $s3,0($s4) #carregando valor de board[row}[column] para $s3
 		
 	li $t3, -1 #-1 para comparação
 	
