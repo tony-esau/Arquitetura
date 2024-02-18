@@ -6,23 +6,23 @@ play:
 	save_context
 	#int play(int board[][SIZE] ($s0), int row ($s1), int column ($s2)) 
 	move $s0, $a0 #inicio da matriz
-	move $s1, $a1 #índice da linha do elemento
-	move $s2, $a2 #índice da coluna do elemento
+	move $s1, $a1 #Ã­ndice da linha do elemento
+	move $s2, $a2 #Ã­ndice da coluna do elemento
 	
 	# Tomando valor de board[row}[column] 
 	sll $t0, $s1, 5 #percorre linhas
 	sll $t1, $s2, 2 #percorre colunas
-	add $t2, $t0, $t1 #endereço parcial de board[row}[column]
-	add $t2, $t2, $s0 #adiciona o endereço inicial da matriz
+	add $t2, $t0, $t1 #endereÃ§o parcial de board[row}[column]
+	add $s4, $t2, $s0 #adiciona o endereÃ§o inicial da matriz
 	
-	lw $s3,0($t2) #carregando valor de board[row}[column] para $s3
+	lw $s3,0($4) #carregando valor de board[row}[column] para $s3
 		
-	li $t3, -1 #-1 para comparação
+	li $t3, -1 #-1 para comparaÃ§Ã£o
 	
 	#if (board[row][column] == -1) 
 	beq $s3, $t3, acertou_bomba
 	
-	li $t3, -2 #-2 para comparação
+	li $t3, -2 #-2 para comparaÃ§Ã£o
 	#if (board[row][column] == -2)
 	beq $s3, $t3, jogo_continua
 	
@@ -33,8 +33,8 @@ play:
 		
 	jogo_continua:
 		jal countAdjacentBombs #countAdjacentBombs(board, row, column)
-		sw $v0, 0($t1) #board[row][column] = x
-		beq $v0, $zero, revelar_celulas #(!x), revelar células
+		sw $v0, 0($s4) #board[row][column] = x
+		beq $v0, $zero, revelar_celulas #(!x), revelar cÃ©lulas
 		
 		li $v0, 1
 		restore_context
