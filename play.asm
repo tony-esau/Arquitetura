@@ -24,7 +24,7 @@ play:
 	
 	li $t3, -2 #-2 para comparação
 	#if (board[row][column] == -2)
-	beq $s3, $t3, jogo_continua
+	j jogo_continua
 	
 	acertou_bomba:
 		li $v0, 0
