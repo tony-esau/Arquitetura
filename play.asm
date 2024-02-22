@@ -44,7 +44,7 @@ play:
 		jal revealNeighboringCells #revealAdjacentCells(board, row, column); 
 		li $v0, 1 
 		restore_context
-		jr $ra #return 1
+		jr $ra #return 
 
 	
 		
